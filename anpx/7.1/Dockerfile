@@ -2,7 +2,7 @@ FROM alpine:3.9
 
 RUN NGINX_VERSION="1.16.0" \
     && PHP_VERSION="7.1.30" \
-    && apk add --update --no-cache \
+    && apk add --update --no-cache gettext \
     curl \
     make \
     cmake \
