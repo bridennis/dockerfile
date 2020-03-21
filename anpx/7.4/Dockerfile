@@ -1,8 +1,9 @@
 FROM alpine:3.9.5
 
 RUN NGINX_VERSION="1.16.1" \
-    && PHP_VERSION="7.4.3" \
+    && PHP_VERSION="7.4.4" \
     && XDEBUG_VERSION="2.9.3" \
+    && IMAGICK_VERSION="3.4.4" \
     && apk add --update --no-cache \
     curl \
     make \
@@ -21,7 +22,7 @@ RUN NGINX_VERSION="1.16.1" \
     ### with Curl
     && apk add --no-cache curl-dev \
     ### with GD
-    && apk add --no-cache libwebp-dev libjpeg libpng-dev libxml2-dev libzip-dev \
+    && apk add --no-cache libwebp-dev libjpeg libpng-dev libxml2-dev libzip-dev imagemagick-dev \
 ### Requirements for Nginx
     && apk add --no-cache sqlite-dev oniguruma-dev \
     ###
@@ -47,10 +48,11 @@ RUN NGINX_VERSION="1.16.1" \
     --prefix=/usr \
     --enable-gd \
     --enable-mbstring \
+    --enable-exif \
+    --enable-fpm \
     --with-curl \
     --with-mysqli \
     --with-pdo-mysql \
-    --enable-fpm \
     --with-openssl \
     --with-zlib \
     --with-zip \
@@ -65,6 +67,18 @@ RUN NGINX_VERSION="1.16.1" \
     && phpize \
     && ./configure --enable-xdebug \
     && make && make install \
+### Install Imagick
+    && cd /home/distr \
+    && wget https://pecl.php.net/get/imagick-$IMAGICK_VERSION.tgz \
+    && tar xzf imagick-$IMAGICK_VERSION.tgz \
+    && cd imagick-$IMAGICK_VERSION \
+    && phpize && ./configure && make && make install \
+### Install composer
+    && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    && php -r "if (hash_file('sha384', 'composer-setup.php') === 'e0012edf3e80b6978849f5eff0d4b4e4c79ff1609dd1e613307e16318854d24ae64f26d17af3ef0bf7cfb710ca74755a') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
+    && php composer-setup.php \
+    && php -r "unlink('composer-setup.php');" \
+    && mv composer.phar /usr/local/bin/composer \
 ### Clean up
     && apk del \
     perl-text-template \
