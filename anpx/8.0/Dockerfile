@@ -91,7 +91,6 @@ RUN NGINX_VERSION="1.19.6" \
     cmake \
     autoconf \
     tzdata \
-    git \
     && rm -Rf /home/distr \
     && rm -Rf /usr/etc/* \
     && mkdir -p /var/www/html \
