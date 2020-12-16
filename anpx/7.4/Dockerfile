@@ -14,6 +14,7 @@ RUN NGINX_VERSION="1.19.6" \
     linux-headers \
     pcre-dev \
     zlib-dev \
+    git \
 ### Requirements for OpenSSL package
     perl \
     perl-text-template \
