@@ -1,8 +1,8 @@
-FROM alpine:3.9.5
+FROM alpine:latest
 
-RUN NGINX_VERSION="1.16.1" \
-    && PHP_VERSION="7.4.4" \
-    && XDEBUG_VERSION="2.9.3" \
+RUN NGINX_VERSION="1.19.6" \
+    && PHP_VERSION="7.4.13" \
+    && XDEBUG_VERSION="3.0.1" \
     && IMAGICK_VERSION="3.4.4" \
     && apk add --update --no-cache \
     curl \
@@ -19,6 +19,7 @@ RUN NGINX_VERSION="1.16.1" \
     perl-text-template \
 ### Requirements for PHP package and PHP extensions
     libxml2-dev \
+    postgresql-dev \
     ### with Curl
     && apk add --no-cache curl-dev \
     ### with GD
@@ -53,6 +54,8 @@ RUN NGINX_VERSION="1.16.1" \
     --with-curl \
     --with-mysqli \
     --with-pdo-mysql \
+    --with-pgsql \
+    --with-pdo-pgsql \
     --with-openssl \
     --with-zlib \
     --with-zip \
@@ -75,7 +78,7 @@ RUN NGINX_VERSION="1.16.1" \
     && phpize && ./configure && make && make install \
 ### Install composer
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-    && php -r "if (hash_file('sha384', 'composer-setup.php') === 'e0012edf3e80b6978849f5eff0d4b4e4c79ff1609dd1e613307e16318854d24ae64f26d17af3ef0bf7cfb710ca74755a') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
+    && php -r "if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
     && php composer-setup.php \
     && php -r "unlink('composer-setup.php');" \
     && mv composer.phar /usr/local/bin/composer \
