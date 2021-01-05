@@ -2,7 +2,7 @@ FROM alpine:latest
 
 RUN NGINX_VERSION="1.19.6" \
     && PHP_VERSION="8.0.0" \
-    && XDEBUG_VERSION="3.0.1" \
+    && XDEBUG_VERSION="3.0.2" \
     && apk add --update --no-cache \
     curl \
     make \
@@ -51,6 +51,7 @@ RUN NGINX_VERSION="1.19.6" \
     --enable-mbstring \
     --enable-exif \
     --enable-fpm \
+    --enable-sockets \
     --with-curl \
     --with-mysqli \
     --with-pdo-mysql \
