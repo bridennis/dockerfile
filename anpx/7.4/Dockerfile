@@ -2,7 +2,7 @@ FROM alpine:latest
 
 RUN NGINX_VERSION="1.19.6" \
     && PHP_VERSION="7.4.13" \
-    && XDEBUG_VERSION="3.0.1" \
+    && XDEBUG_VERSION="3.0.2" \
     && IMAGICK_VERSION="3.4.4" \
     && apk add --update --no-cache \
     curl \
@@ -14,6 +14,7 @@ RUN NGINX_VERSION="1.19.6" \
     linux-headers \
     pcre-dev \
     zlib-dev \
+    g++ \
     git \
 ### Requirements for OpenSSL package
     perl \
@@ -52,6 +53,8 @@ RUN NGINX_VERSION="1.19.6" \
     --enable-mbstring \
     --enable-exif \
     --enable-fpm \
+    --enable-sockets \
+    --enable-intl \
     --with-curl \
     --with-mysqli \
     --with-pdo-mysql \
@@ -88,6 +91,7 @@ RUN NGINX_VERSION="1.19.6" \
     perl-text-template \
     perl \
     gcc \
+    g++ \
     linux-headers \
     make \
     cmake \
