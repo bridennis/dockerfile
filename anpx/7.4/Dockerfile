@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 RUN NGINX_VERSION="1.19.6" \
-    && PHP_VERSION="7.4.13" \
+    && PHP_VERSION="7.4.14" \
     && XDEBUG_VERSION="3.0.2" \
     && IMAGICK_VERSION="3.4.4" \
     && apk add --update --no-cache \
