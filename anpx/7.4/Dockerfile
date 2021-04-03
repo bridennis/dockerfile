@@ -1,8 +1,8 @@
 FROM alpine:latest
 
-RUN NGINX_VERSION="1.19.6" \
-    && PHP_VERSION="7.4.14" \
-    && XDEBUG_VERSION="3.0.2" \
+RUN NGINX_VERSION="1.19.9" \
+    && PHP_VERSION="7.4.16" \
+    && XDEBUG_VERSION="3.0.3" \
     && IMAGICK_VERSION="3.4.4" \
     && apk add --update --no-cache \
     curl \
