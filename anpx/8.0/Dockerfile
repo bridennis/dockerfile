@@ -1,7 +1,7 @@
-FROM alpine:3.13
+FROM alpine:3.14
 
-RUN NGINX_VERSION="1.19.10" \
-    && PHP_VERSION="8.0.5" \
+RUN NGINX_VERSION="1.20.1" \
+    && PHP_VERSION="8.0.8" \
     && XDEBUG_VERSION="3.0.4" \
     && apk add --update --no-cache \
     curl \
@@ -23,7 +23,7 @@ RUN NGINX_VERSION="1.19.10" \
     ### with Curl
     && apk add --no-cache curl-dev \
     ### with GD
-    && apk add --no-cache libwebp-dev libjpeg libpng-dev libxml2-dev libzip-dev imagemagick-dev \
+    && apk add --no-cache libwebp-dev libjpeg libpng-dev libxml2-dev libzip-dev imagemagick-dev libgomp \
 ### Requirements for Nginx
     && apk add --no-cache sqlite-dev oniguruma-dev \
     ###
