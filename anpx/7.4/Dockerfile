@@ -1,9 +1,8 @@
-FROM alpine:3.13
+FROM alpine:3.14
 
-RUN NGINX_VERSION="1.19.10" \
-    && PHP_VERSION="7.4.18" \
+RUN NGINX_VERSION="1.20.1" \
+    && PHP_VERSION="7.4.21" \
     && XDEBUG_VERSION="3.0.4" \
-    && IMAGICK_VERSION="3.4.4" \
     && apk add --update --no-cache \
     curl \
     make \
@@ -25,7 +24,7 @@ RUN NGINX_VERSION="1.19.10" \
     ### with Curl
     && apk add --no-cache curl-dev \
     ### with GD
-    && apk add --no-cache libwebp-dev libjpeg libpng-dev libxml2-dev libzip-dev imagemagick-dev \
+    && apk add --no-cache libwebp-dev libjpeg libpng-dev libxml2-dev libzip-dev imagemagick-dev libgomp \
 ### Requirements for Nginx
     && apk add --no-cache sqlite-dev oniguruma-dev \
     ###
@@ -76,9 +75,8 @@ RUN NGINX_VERSION="1.19.10" \
     && make && make install \
 ### Install Imagick
     && cd /home/distr \
-    && wget https://pecl.php.net/get/imagick-$IMAGICK_VERSION.tgz \
-    && tar xzf imagick-$IMAGICK_VERSION.tgz \
-    && cd imagick-$IMAGICK_VERSION \
+    && git clone https://github.com/Imagick/imagick \
+    && cd imagick \
     && phpize && ./configure && make && make install \
 ### Install composer
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
