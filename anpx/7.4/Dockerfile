@@ -1,8 +1,9 @@
-FROM alpine:3.14
+FROM alpine:3.14.2
 
-RUN NGINX_VERSION="1.20.1" \
-    && PHP_VERSION="7.4.21" \
-    && XDEBUG_VERSION="3.0.4" \
+RUN NGINX_VERSION="1.21.3" \
+    && PHP_VERSION="7.4.24" \
+    && XDEBUG_VERSION="3.1.1" \
+    && IMAGICK_VERSION="3.5.1" \
     && apk add --update --no-cache \
     curl \
     make \
@@ -80,7 +81,7 @@ RUN NGINX_VERSION="1.20.1" \
     && phpize && ./configure && make && make install \
 ### Install composer
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-    && php -r "if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
+    && php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
     && php composer-setup.php \
     && php -r "unlink('composer-setup.php');" \
     && mv composer.phar /usr/local/bin/composer \
