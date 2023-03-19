@@ -1,8 +1,8 @@
 FROM alpine:3.17
 
-RUN NGINX_VERSION="1.23.2" \
-    && PHP_VERSION="8.1.13" \
-    && XDEBUG_VERSION="3.1.6" \
+RUN NGINX_VERSION="1.23.3" \
+    && PHP_VERSION="8.1.17" \
+    && XDEBUG_VERSION="3.2.0" \
     && apk add --update --no-cache \
     curl \
     make \
@@ -36,7 +36,7 @@ RUN NGINX_VERSION="1.23.2" \
     && curl -LO https://nginx.org/download/nginx-$NGINX_VERSION.tar.gz \
     && tar xzf nginx-$NGINX_VERSION.tar.gz \
     && cd nginx-$NGINX_VERSION \
-    && ./configure --user=nobody --with-http_ssl_module --with-http_v2_module \
+    && ./configure --user=nobody --with-http_ssl_module --with-http_v2_module --with-debug \
     && make && make install \
     && rm -Rf /usr/local/nginx/html /usr/local/nginx/logs \
     && rm /usr/local/nginx/conf/*.default /usr/local/nginx/conf/nginx.conf \
