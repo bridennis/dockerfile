@@ -7,14 +7,14 @@ These images based on Alpine linux and include an Nginx, PHP, Xdebug and Compose
 
 ### How to build image
 
-For example version 8.1:
+For example version 8.3:
 ```
-cd anpx/8.1/
-docker build -t bridennis/anpx:8.1 .
+cd anpx/8.3/
+docker build -t bridennis/anpx:8.3 .
 ```
 
 ### How to push image to dockerhub
 
 ```
-docker push bridennis/anpx:8.1
+docker push bridennis/anpx:8.3
 ```
